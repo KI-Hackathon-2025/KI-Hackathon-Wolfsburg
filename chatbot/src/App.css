@@ -1,0 +1,156 @@
+/* 앱 전체 배경 이미지 설정 */
+
+/* 우측 하단 버튼 */
+.chat-toggle-button {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 40px;
+  width: 70px;
+  /* 고정된 너비 */
+  height: 70px;
+  /* 고정된 높이 */
+  border-radius: 50%;
+  /* 동그라미 모양 유지 */
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  /* 버튼 내에서 아이콘 중앙 정렬 */
+  align-items: center;
+  /* 버튼 내에서 아이콘 중앙 정렬 */
+}
+
+/* 챗봇 팝업 창 */
+.chat-window {
+  position: fixed;
+  bottom: 130px;
+  right: 40px;
+  width: 600px;
+  height: 900px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 챗봇 헤더 */
+.chat-header {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  text-align: right;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* 챗봇 닫기 버튼 */
+.close-chat {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* 대화 내용 */
+.messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+/* 메시지 스타일 */
+.message {
+  display: flex;
+  margin-bottom: 20px;
+  flex-direction: row;
+  /* 기본적으로 가로 정렬 */
+}
+
+/* 봇 메시지 왼쪽 정렬 */
+.message.bot {
+  align-items: flex-start;
+  flex-direction: row;
+  /* 봇 메시지 왼쪽 정렬 */
+}
+
+/* 사용자 메시지 오른쪽 정렬 */
+.message.user {
+  align-items: flex-end;
+  flex-direction: row-reverse;
+  /* 사용자 메시지 오른쪽 정렬 */
+}
+
+/* 프로필 이미지 */
+.profile-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+/* 메시지 콘텐츠 */
+.message-content {
+  padding: 10px;
+  border-radius: 10px;
+  word-wrap: break-word;
+  /* 긴 단어가 끊어지도록 */
+}
+
+/* 사용자의 메시지 스타일 */
+.message.user .message-content {
+  background-color: #4CAF50;
+  /* 사용자 메시지 배경 색상 */
+  color: white;
+  /* 사용자 메시지 글자 색상 */
+  max-width: 300px;
+  /* 사용자의 메시지 너비 설정 */
+}
+
+/* 봇의 메시지 스타일 */
+.message.bot .message-content {
+  background-color: #f0f0f0;
+  /* 봇 메시지 배경 색상 */
+  color: black;
+  /* 봇 메시지 글자 색상 */
+  max-width: 400px;
+  /* 봇의 메시지 너비 설정 */
+}
+
+/* 메시지 로딩 */
+.loading {
+  text-align: center;
+  font-style: italic;
+  color: #888;
+}
+
+/* 입력창 */
+.input-area {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.input-field {
+  width: 96%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.send-button {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
