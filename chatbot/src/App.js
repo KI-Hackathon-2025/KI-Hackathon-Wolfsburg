@@ -11,6 +11,9 @@ const App = () => {
   const [chatVisible, setChatVisible] = useState(false);  // 챗봇 팝업 상태 관리
   const [categoryData, setCategoryData] = useState([]);  // 카테고리 데이터
   const [visaInfoData, setVisaInfoData] = useState([]);  // 비자 정보 데이터
+  const [file, setFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [uploadMessage, setUploadMessage] = useState("");
   const messagesRef = useRef(null);
 
   // JSON 파일을 로드하는 함수
@@ -26,7 +29,32 @@ const App = () => {
   //     console.error("Error loading JSON files:", error);
   //   }
   // };
+    const formData = new FormData();
+    formData.append("file", file);
 
+    setUploading(true);  // 업로드 중 표시
+    try {
+      const response = await fetch("http://localhost:5050/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        const result = await response.text();
+        setUploadMessage(result);  // 업로드 성공 메시지
+      } else {
+        setUploadMessage("파일 업로드 실패!");
+      }
+    } catch (error) {
+      console.error("업로드 오류:", error);
+      setUploadMessage("서버 오류 발생!");
+    } finally {
+      setUploading(false);  // 업로드 완료 후 상태 변경
+    }
+  };
+
+
+  /** Chat Bot */
   // crawling_data 폴더 내 모든 JSON 파일을 불러오는 함수
   const fetchVisaFiles = async () => {
     const visaFiles = [];
@@ -254,6 +282,14 @@ const App = () => {
             <button onClick={handleSendMessage} disabled={loading} className="send-button">
               {loading ? '전송 중...' : '전송'}
             </button>
+            <div>
+              <input type="file" onChange={handleFileChange} />
+              <button onClick={handleUpload} disabled={uploading}>
+                {uploading ? "업로드 중..." : "업로드"}
+              </button>
+
+              {uploadMessage && <p>{uploadMessage}</p>}
+            </div>
           </div>
         </div>
       )}
