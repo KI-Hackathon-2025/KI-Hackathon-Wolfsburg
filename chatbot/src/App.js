@@ -8,9 +8,9 @@ const App = () => {
   const [userMessage, setUserMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [chatVisible, setChatVisible] = useState(false);  // 챗봇 팝업 상태 관리
-  const [categoryData, setCategoryData] = useState([]);  // 카테고리 데이터
-  const [visaInfoData, setVisaInfoData] = useState([]);  // 비자 정보 데이터
+  const [chatVisible, setChatVisible] = useState(false);
+  const [categoryData, setCategoryData] = useState([]);
+  const [visaInfoData, setVisaInfoData] = useState([]);
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [uploadMessage, setUploadMessage] = useState("");
@@ -25,14 +25,14 @@ const App = () => {
 
   const handleUpload = async () => {
     if (!file) {
-      alert("파일을 선택하세요!");
+      alert("Wählen Sie eine Datei");
       return;
     }
 
     const formData = new FormData();
     formData.append("file", file);
 
-    setUploading(true);  // 업로드 중 표시
+    setUploading(true);
     try {
       const response = await fetch("http://localhost:5050/upload", {
         method: "POST",
@@ -41,41 +41,39 @@ const App = () => {
 
       if (response.ok) {
         const result = await response.text();
-        setUploadMessage(result);  // 업로드 성공 메시지
+        setUploadMessage(result);
       } else {
-        setUploadMessage("파일 업로드 실패!");
+        setUploadMessage("Dateiupload fehlgeschlagen");
       }
     } catch (error) {
-      console.error("업로드 오류:", error);
-      setUploadMessage("서버 오류 발생!");
+      console.error("Upload error:", error);
+      setUploadMessage("Server-Fehler");
     } finally {
-      setUploading(false);  // 업로드 완료 후 상태 변경
+      setUploading(false);
     }
   };
 
 
   /** Chat Bot */
-  // crawling_data 폴더 내 모든 JSON 파일을 불러오는 함수
+  // Function to fetch all JSON files in the crawling_data folder
   const fetchVisaFiles = async () => {
     const visaFiles = [];
     const folder = '/crawling_data/';
 
-    // 실제 JSON 파일 이름으로 수정 필요
     const files = [
-      'city_service.json',  // 실제 파일명으로 변경
-      'visa.json',  // 실제 파일명으로 변경
+      'city_service.json',
+      'visa.json',
     ];
 
-    // 파일을 순차적으로 불러오고 데이터를 처리
     for (let filename of files) {
       try {
         const response = await axios.get(`${folder}${filename}`);
         const data = response.data;
 
         if (Array.isArray(data)) {
-          visaFiles.push(...data); // 배열인 경우 데이터 병합
+          visaFiles.push(...data);  // Merge data if it's an array
         } else {
-          visaFiles.push(data); // 객체인 경우 데이터 추가
+          visaFiles.push(data); // For objects, add data
         }
       } catch (error) {
         console.error(`Error fetching ${filename}:`, error);
@@ -84,7 +82,7 @@ const App = () => {
     return visaFiles;
   };
 
-  // 프롬프트 생성 함수
+  // Prompt generation functions
   const createPrompt = (userMessage, categoryData) => {
     const categories = categoryData.map(cat => cat.content).join(', ');
     return `
@@ -96,18 +94,18 @@ const App = () => {
     `;
   };
 
-  // GPT에게 질문을 전송하기 전, 적합한 카테고리 찾기
+  // Find the right category before sending a question to a GPT
   const determineCategory = (userMessage) => {
-    // 카테고리를 선택하는 프롬프트 생성
+    // Create a prompt to select a category
     const prompt = createPrompt(userMessage, categoryData);
 
-    // OpenAI API를 사용해 카테고리 결정
+    // Using the OpenAI API to determine categories
     return axios.post('https://api.openai.com/v1/chat/completions', {
       model: 'gpt-3.5-turbo',
       messages: [{ role: 'user', content: prompt }],
     }, {
       headers: {
-        'Authorization': `Bearer ${API_KEY}`, // 여기에 OpenAI API 키 입력
+        'Authorization': `Bearer ${API_KEY}`,
         'Content-Type': 'application/json',
       }
     }).then(response => {
@@ -119,10 +117,10 @@ const App = () => {
     });
   };
 
-  // 유사한 항목을 찾는 함수 (카테고리와 title을 비교)
+  // Functions to find similar items (compare category and title)
   const findSimilarEntry = (categoryValue) => {
     const categoryValueLower = categoryValue.toLowerCase();
-    const threshold = 0.8;  // 유사도 기준
+    const threshold = 0.8;  // Similarity criteria
 
     const bestEntry = visaInfoData.reduce((best, entry) => {
       const title = entry.title.toLowerCase();
@@ -136,7 +134,7 @@ const App = () => {
     return bestEntry.entry;
   };
 
-  // 두 문자열의 유사도를 계산하는 함수 (cosine 유사도)
+  // Function to calculate the similarity of two strings (cosine similarity)
   const similarityScore = (a, b) => {
     const aTokens = a.split(' ');
     const bTokens = b.split(' ');
@@ -152,38 +150,32 @@ const App = () => {
     return dotProduct / (magnitudeA * magnitudeB);
   };
 
-  // 사용자가 메시지를 보낼 때 호출되는 함수
+  // Function called when a user sends a message
   const handleSendMessage = async () => {
     if (!userMessage || loading) return;
 
     const newMessages = [...messages, { role: 'user', content: userMessage }];
     const newMessage = { role: 'user', content: userMessage };
 
-    setMessages(newMessages);  // 메시지 상태 업데이트
+    setMessages(newMessages);  // Update message status
     setLoading(true);
 
-    // 메시지 전송 후 입력창 비우기 (setTimeout을 사용하여 처리)
     setTimeout(() => {
       setUserMessage('');
-    }, 100);  // 100ms 뒤에 입력창 초기화
+    }, 100);  // 100ms
 
 
     try {
-      const category = await determineCategory(userMessage);  // 카테고리 결정
+      const category = await determineCategory(userMessage);  // Decide on a category
       console.log("Category Determined:", category);
 
-      // 유사한 항목을 찾아서 프롬프트에 포함시킴
+      // Find similar items and include them in the prompt
       const matchingEntry = findSimilarEntry(category);
 
       const systemMessage = matchingEntry
         ? `Context: ${matchingEntry.content}\n\nInstruction: Provide an answer based on the above context if it answers the user's question. Otherwise, answer based on general knowledge.`
         : "No relevant context available. Provide a general answer.";
 
-      // const messagesForAPI = [
-      //   { role: 'system', content: systemMessage },
-      //   ...messages,
-      //   newMessages
-      // ];
 
       const response = await axios.post('https://api.openai.com/v1/chat/completions', {
         model: 'gpt-4o-mini',
@@ -194,7 +186,7 @@ const App = () => {
         ]
       }, {
         headers: {
-          'Authorization': `Bearer ${API_KEY}`, // 여기에 OpenAI API 키 입력
+          'Authorization': `Bearer ${API_KEY}`,
           'Content-Type': 'application/json',
         }
       });
@@ -204,40 +196,40 @@ const App = () => {
       setMessages(prevMessages => [...prevMessages, { role: 'assistant', content: botMessage }]);
     } catch (error) {
       console.error('Error calling OpenAI API:', error);
-      setMessages(prevMessages => [...prevMessages, { role: 'assistant', content: '죄송합니다, 오류가 발생했습니다.' }]);
+      setMessages(prevMessages => [...prevMessages, { role: 'assistant', content: 'Entschuldigung, es ist ein Fehler aufgetreten.' }]);
     } finally {
       setLoading(false);
     }
   };
 
-  // 메시지가 변경될 때마다 대화창 맨 아래로 자동으로 스크롤
+  // Automatically scroll to the bottom of the dialog whenever the message changes
   useEffect(() => {
     if (messagesRef.current) {
       messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
     }
   }, [messages]);
 
-  // 챗봇 팝업 열기/닫기 함수
+  // Chatbot popup open/close functions
   const toggleChatVisibility = () => {
     setChatVisible(prevState => !prevState);
   };
 
-  // 컴포넌트가 마운트될 때 JSON 파일 로드
+  // Loading JSON files when components are mounted
   useEffect(() => {
     const loadJsonFiles = async () => {
       try {
-        // 카테고리 파일 불러오기
+        // Importing category files
         const categoryResponse = await axios.get('/category.json');
         setCategoryData(categoryResponse.data);
 
         const visaFiles = await fetchVisaFiles();
-        setVisaInfoData(visaFiles);  // 불러온 데이터 설정
+        setVisaInfoData(visaFiles);
       } catch (error) {
         console.error("Error loading JSON files:", error);
       }
     };
 
-    loadJsonFiles();  // 컴포넌트가 처음 로드될 때 JSON 파일 로드
+    loadJsonFiles();  // Loading JSON files when components are first loaded
   }, []);
 
   return (
@@ -267,7 +259,7 @@ const App = () => {
                 <div className="message-content">{message.content}</div>
               </div>
             ))}
-            {loading && <div className="loading">생각 중...</div>}
+            {loading && <div className="loading">Ich bin am Nachdenken...</div>}
           </div>
 
           <div className="input-area">
@@ -276,16 +268,16 @@ const App = () => {
               onChange={(e) => setUserMessage(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Enter') handleSendMessage() }}
               rows="3"
-              placeholder="메시지를 입력하세요..."
+              placeholder="Bitte Nachricht eingeben..."
               className="input-field"
             />
             <button onClick={handleSendMessage} disabled={loading} className="send-button">
-              {loading ? '전송 중...' : '전송'}
+              {loading ? 'Wird gesendet...' : 'Senden'}
             </button>
             <div>
               <input type="file" onChange={handleFileChange} />
               <button onClick={handleUpload} disabled={uploading}>
-                {uploading ? "업로드 중..." : "업로드"}
+                {uploading ? "Wird hochgeladen..." : "Hochladen"}
               </button>
 
               {uploadMessage && <p>{uploadMessage}</p>}
