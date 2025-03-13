@@ -16,19 +16,19 @@ const App = () => {
   const [uploadMessage, setUploadMessage] = useState("");
   const messagesRef = useRef(null);
 
-  // JSON 파일을 로드하는 함수
-  // const loadJsonFiles = async () => {
-  //   try {
-  //     // 카테고리 파일 불러오기
-  //     const categoryResponse = await axios.get('/category.json');
-  //     setCategoryData(categoryResponse.data);
 
-  //     const visaFiles = await fetchVisaFiles();
-  //     setVisaInfoData(visaFiles);  // 불러온 데이터 설정
-  //   } catch (error) {
-  //     console.error("Error loading JSON files:", error);
-  //   }
-  // };
+  /** File Upload */
+
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
+
+  const handleUpload = async () => {
+    if (!file) {
+      alert("파일을 선택하세요!");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("file", file);
 
