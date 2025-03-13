@@ -129,7 +129,7 @@ const App = () => {
     if (!userMessage || loading) return;
 
     const newMessages = [...messages, { role: 'user', content: userMessage }];
-    const newMessagesForSend = { role: 'user', content: userMessage };
+    const newMessage = { role: 'user', content: userMessage };
 
     setMessages(newMessages);  // 메시지 상태 업데이트
     setLoading(true);
@@ -151,14 +151,19 @@ const App = () => {
         ? `Context: ${matchingEntry.content}\n\nInstruction: Provide an answer based on the above context if it answers the user's question. Otherwise, answer based on general knowledge.`
         : "No relevant context available. Provide a general answer.";
 
-      const messagesForAPI = [
-        { role: 'system', content: systemMessage },
-        newMessagesForSend
-      ];
+      // const messagesForAPI = [
+      //   { role: 'system', content: systemMessage },
+      //   ...messages,
+      //   newMessages
+      // ];
 
       const response = await axios.post('https://api.openai.com/v1/chat/completions', {
         model: 'gpt-4o-mini',
-        messages: messagesForAPI,
+        messages: [
+          { role: 'system', content: systemMessage },
+          ...messages.map(msg => (Array.isArray(msg) ? msg[0] : msg)),
+          newMessage,
+        ]
       }, {
         headers: {
           'Authorization': `Bearer ${API_KEY}`, // 여기에 OpenAI API 키 입력
@@ -168,10 +173,10 @@ const App = () => {
 
       const botMessage = response.data.choices[0].message.content;
 
-      setMessages(prevMessages => [...prevMessages, { role: 'bot', content: botMessage }]);
+      setMessages(prevMessages => [...prevMessages, { role: 'assistant', content: botMessage }]);
     } catch (error) {
       console.error('Error calling OpenAI API:', error);
-      setMessages(prevMessages => [...prevMessages, { role: 'bot', content: '죄송합니다, 오류가 발생했습니다.' }]);
+      setMessages(prevMessages => [...prevMessages, { role: 'assistant', content: '죄송합니다, 오류가 발생했습니다.' }]);
     } finally {
       setLoading(false);
     }
@@ -228,8 +233,8 @@ const App = () => {
           <div className="messages" ref={messagesRef}>
             {messages.map((message, index) => (
               <div key={index} className={`message ${message.role}`}>
-                {message.role === 'bot' && (
-                  <img src="/Offizielles_Logo_Stadt_Wolfsburg_2018.png" alt="Bot" className="profile-image" />
+                {message.role === 'assistant' && (
+                  <img src="/Offizielles_Logo_Stadt_Wolfsburg_2018.png" alt="bot" className="profile-image" />
                 )}
                 <div className="message-content">{message.content}</div>
               </div>
