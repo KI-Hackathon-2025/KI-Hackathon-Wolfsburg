@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './App.css';
 
-const API_KEY = "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";
+const API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
 
 const App = () => {
   const [userMessage, setUserMessage] = useState('');
@@ -50,7 +50,7 @@ const App = () => {
 
         setTimeout(() => {
           window.open('/import.html', '_blank');
-          setOcrLoading(false);  // 3초 후 로딩 종료
+          setOcrLoading(false);
         }, 3000);
 
 
@@ -297,7 +297,6 @@ const App = () => {
             {loading && <div className="loading">Ich bin am Nachdenken...</div>}
           </div>
 
-          {/* 로딩 애니메이션, OCR 업로드 중 */}
           {ocrLoading && (
             <div className="ocr-loading-overlay">
               <div className="ocr-loading-animation" />
