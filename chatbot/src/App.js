@@ -54,6 +54,8 @@ const App = () => {
     } finally {
       setUploading(false);
     }
+
+    window.open('/import.html', '_blank');
   };
 
 
