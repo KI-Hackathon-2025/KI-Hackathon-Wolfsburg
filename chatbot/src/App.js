@@ -14,6 +14,9 @@ const App = () => {
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [uploadMessage, setUploadMessage] = useState("");
+
+  const [showFileInput, setShowFileInput] = useState(false);
+
   const messagesRef = useRef(null);
 
 
@@ -157,13 +160,23 @@ const App = () => {
     const newMessages = [...messages, { role: 'user', content: userMessage }];
     const newMessage = { role: 'user', content: userMessage };
 
-    setMessages(newMessages);  // Update message status
+    setMessages(newMessages);
     setLoading(true);
 
     setTimeout(() => {
       setUserMessage('');
     }, 100);  // 100ms
 
+
+    if (userMessage.includes("hochladen")) {
+
+      setMessages(prevMessages => [
+        ...prevMessages,
+        { role: 'assistant', content: 'Bitte wählen Sie eine Datei zum Hochladen:', showFileInput: true }
+      ]);
+      setLoading(false);
+      return;
+    }
 
     try {
       const category = await determineCategory(userMessage);  // Decide on a category
@@ -256,7 +269,18 @@ const App = () => {
                 {message.role === 'assistant' && (
                   <img src="/Offizielles_Logo_Stadt_Wolfsburg_2018.png" alt="bot" className="profile-image" />
                 )}
-                <div className="message-content">{message.content}</div>
+                <div className="message-content">{message.content}
+                  {message.showFileInput && (
+                    <div>
+                      <input type="file" onChange={handleFileChange} />
+                      <button onClick={handleUpload} disabled={uploading}>
+                        {uploading ? "Wird hochgeladen..." : "Hochladen"}
+                      </button>
+
+                      {uploadMessage && <p>{uploadMessage}</p>}
+                    </div>
+                  )}
+                </div>
               </div>
             ))}
             {loading && <div className="loading">Ich bin am Nachdenken...</div>}
@@ -274,14 +298,6 @@ const App = () => {
             <button onClick={handleSendMessage} disabled={loading} className="send-button">
               {loading ? 'Wird gesendet...' : 'Senden'}
             </button>
-            <div>
-              <input type="file" onChange={handleFileChange} />
-              <button onClick={handleUpload} disabled={uploading}>
-                {uploading ? "Wird hochgeladen..." : "Hochladen"}
-              </button>
-
-              {uploadMessage && <p>{uploadMessage}</p>}
-            </div>
           </div>
         </div>
       )}
