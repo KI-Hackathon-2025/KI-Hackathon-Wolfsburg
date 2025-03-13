@@ -62,6 +62,7 @@ const App = () => {
       setUploadMessage("Server-Fehler");
     } finally {
       setUploading(false);
+      setUploadMessage("");
     }
   };
 
