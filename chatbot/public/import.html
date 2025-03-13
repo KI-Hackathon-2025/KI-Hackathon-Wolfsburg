@@ -1,0 +1,912 @@
+<html lang="de"><!--HTML Header--><head>
+    <base href="https://formserv.stadt.wolfsburg.de/jfs/getform/hundeanmeldung_Online-Rathaus_HTML/000-015/">
+    <title>Hundesteuer - Anmeldung</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" charset="UTF-8">
+    <meta name="author" content="Stadt Wolfsburg">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!--Boostrap styles-->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> <!--Jqery scripts-->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> <!--Jquery UI scripts-->
+    <script src=""></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> <!--CSS style sheets-->
+    <style type="text/css">
+
+        .body {
+            background-color: #dee7f2;
+            font-family: Arial,Helvetica,sans-serif;
+        }
+
+        .pageband {
+            margin-top:40px;
+            margin-bottom:40px;
+        }
+
+        .page {
+            margin: 0px auto 20px auto;
+            border: 1px solid #aaaaaa;
+            background-color:#ffffff;
+            height:29.7cm;
+            width:21cm;
+            position:relative;
+        }
+
+        .zone {
+            position:absolute;
+            overflow:hidden;
+            margin:0;
+        }
+
+        .dynazone {
+            position:relative;
+            overflow:hidden;
+            margin:0;
+        }
+
+        .obj {
+            position:absolute;
+            overflow:none;
+            text-align:left;
+            margin:0;
+        }
+
+        .fieldset-container {
+            position:absolute;
+            left:0px;
+        }
+
+        .rtfobj {
+            /*
+              font-size:8pt;
+
+              Has been removed to make relative font sizes working.
+              Nobody knows if this item is needed anywhere.
+              So we leave this comment here to know why we took the item out.
+            */
+
+            /*
+              Reimplemented on 2108-05-25 because RTF-Texts get a bad line distance
+            */
+            font-size:8pt;
+        }
+
+        .input {
+            border:1px solid rgba(0,0,0,0); /* border:none causes input disabling in 'chrome' */
+            width:100%;
+            background-color:rgba(0,0,0,0);
+        }
+
+        .input-envelope {
+            position:absolute;
+            overflow:hidden;
+        }
+
+        .left-cb-label {
+            position:absolute;
+            top:0px;
+            left:20px;
+        }
+
+        .left-cb-input {
+            position:absolute;
+            top:0px;
+            left:-4px;
+        }
+
+        .right-cb-label {
+            position:absolute;
+            top:0px;
+            right:20px;
+        }
+
+        .right-cb-input {
+            position:absolute;
+            top:0px;
+            right:-3px;
+        }
+
+
+        /* This styles are needed only as long as old style cehckboxes are supported */
+
+        .left-checkbox-label {
+            display:block;
+            margin-left:20px;
+        }
+
+        .left-checkbox-input {
+            position:relative;
+            float:left;
+            margin-left:-20px;
+        }
+
+        .right-checkbox-label {
+            display:block;
+            margin-right:20px;
+        }
+
+        .right-checkbox-input {
+            position:relative;
+            float:right;
+            margin-right:-20px;
+        }
+
+
+
+        .eforms-popup {
+            position:absolute;
+            background-color: #555555;
+            color:#dddddd;
+            border: 1px solid #888888;
+            border-radius: 5px;
+            padding: 5px;
+            z-index: 9999;
+            max-width:150px;
+        }
+
+        p {
+            margin-top:1mm;
+            margin-bottom:1mm;
+        }
+
+        /* Classes to be added to elements with bad input */
+        .input-with-error{
+            border-color:#DF0044 !important;
+        }
+
+        .label-with-error{
+            color:#DF0044 !important;
+        }
+
+        /* Infield label input fields */
+
+        .infieldlabel {
+            background: #dfdfdf;
+            position: relative;
+        }
+
+        .infieldlabel label {
+            display:  block;
+            position: absolute;
+            top:      5px;
+            left:     5px;
+            font-size: 80%;
+            color:#0000AA;
+            font-weight: normal;
+            letter-spacing: 0.03em;
+        }
+
+        .infieldlabel input {
+            font-size: 120%;
+            padding:  1.2em 5px 5px 5px;
+            color:    #444444;
+            height:   auto;
+            border:   1px #bbbbbb solid;
+            border-radius: 5px;
+            outline:  none;
+            box-shadow: none;
+            -webkit-box-shadow: none;
+        }
+
+        .infieldlabel textarea {
+            font-size: 120%;
+            padding:  1.2em 5px 5px 5px;
+            color:    #444444;
+            height:   auto;
+            border:   1px #bbbbbb solid;
+            border-radius: 5px;
+            outline:  none;
+            box-shadow: none;
+            -webkit-box-shadow: none;
+        }
+
+        .infieldlabel select {
+            font-size: 120%;
+            padding:  1.2em 5px 5px 5px;
+            color:    #444444;
+            height:   auto;
+            border:   1px #bbbbbb solid;
+            border-radius: 5px;
+            outline:  none;
+            box-shadow: none;
+            -webkit-box-shadow: none;
+        }
+
+
+        /* Infield errors */
+
+        .infielderror {
+            background-color:#DF0044;
+            color:#ffffff;
+        }
+
+
+        /* Field Sets */
+
+        .fieldset-inner-bs {
+            padding-left:15px;
+            padding-top:0px;
+            padding-right:15px;
+            padding-bottom:20px;
+        }
+
+        .fieldset-legend-bs {
+            padding-left:15px;
+            padding-top:20px;
+            padding-right:15px;
+            margin-bottom:5px;
+        }
+
+
+        /*
+          Datepicker
+        */
+
+        .dpDiv {
+
+        }
+        .dpTable {
+            BORDER-RIGHT: #aaaaaa 1px solid; BORDER-TOP: #aaaaaa 1px solid; FONT-SIZE: 12px; BORDER-LEFT: #aaaaaa 1px solid; COLOR: #505050; BORDER-BOTTOM: #aaaaaa 1px solid; FONT-FAMILY: Tahoma, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #ece9d8; TEXT-ALIGN: center
+        }
+        .dpTR {
+
+        }
+        .dpTitleTR {
+
+        }
+        .dpDayTR {
+
+        }
+        .dpTodayButtonTR {
+
+        }
+        .dpTD {
+            CURSOR: pointer
+        }
+        .dpDayHighlightTD {
+            BORDER-RIGHT: #aaaaaa 1px solid; BORDER-TOP: #aaaaaa 1px solid; BORDER-LEFT: #aaaaaa 1px solid; CURSOR: pointer; BORDER-BOTTOM: #aaaaaa 1px solid; BACKGROUND-COLOR: #cccccc
+        }
+        .dpTitleTD {
+
+        }
+        .dpButtonTD {
+
+        }
+        .dpTodayButtonTD {
+
+        }
+        .dpDayTD {
+            BORDER-RIGHT: #aaaaaa 1px solid; BORDER-TOP: #aaaaaa 1px solid; BORDER-LEFT: #aaaaaa 1px solid; COLOR: white; BORDER-BOTTOM: #aaaaaa 1px solid; BACKGROUND-COLOR: #cccccc
+        }
+        .dpTitleText {
+            FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: gray
+        }
+        .dpDayHighlight {
+            FONT-WEIGHT: bold; COLOR: #4060ff
+        }
+        .dpButton {
+            PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: bold; FONT-SIZE: 10px; BACKGROUND: #d8e8ff; PADDING-BOTTOM: 0px; COLOR: gray; PADDING-TOP: 0px; FONT-FAMILY: Verdana, Tahoma, Arial, Helvetica, sans-serif
+        }
+        .dpTodayButton {
+            FONT-WEIGHT: bold; FONT-SIZE: 10px; BACKGROUND: #d8e8ff; COLOR: gray; FONT-FAMILY: Verdana, Tahoma, Arial, Helvetica, sans-serif
+        }
+
+        .hochladeknopf {
+            background-color: #bee623;
+            font: bold 10.0pt Arial;
+            color: #000000;
+            position: sticky;
+            bottom: 20px;
+            left: 20px;
+        }
+
+        /* End datepicker */
+    </style>
+</head> <!--HTML Body-->
+<body style="font:12pt Calibri;">
+<!--All popups are here-->
+<div></div>
+<div class="container">
+    <form name="WaimeaForm" onsubmit="return OnSubmit();" action="https://formserv.stadt.wolfsburg.de/NetGateway/Process" method="post" enctype="multipart/form-data">
+        <!--Page 1-->
+        <div data-ref-name="" data-ref-value="" data-visibility="ever" data-pagenr="1" class="bootstrap-page" style="">
+            <div id="kopf" class="row">
+                <div class="col-sm-10">
+                    <!--picture--> <img id="AUTO-22" class="img-responsive cc-obj cc-img" height="8" width="275" src="hundeanmeldung-0001.jpg" alt=""> <!--edit-->
+                    <div class="cc-obj cc-edit">
+                        <input id="programmierung_unterschiede" class="form-control" type="hidden" name="programmierung_unterschiede" onblur="X1_41_programmierung_unterschiede_OnBlur(this);" value="">
+                    </div> <!--text-->
+                    <div class="cc-text" id="hinweis_pflicht">
+                        Pflichtfelder sind mit * gekennzeichnet
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <!--edit-->
+                    <div class="cc-obj cc-edit">
+                        <input id="datum" style="text-align:right;" class="form-control" type="text" name="" readonly="" title="Unterschriftsdatum" placeholder="Unterschriftsdatum" onfocus="X1_42_datum_OnFocus(this);" onblur="X1_42_datum_OnBlur(this);" value="">
+                    </div> <input type="hidden" name="datum" title="Unterschriftsdatum" id="datum-assoc-hidden">
+                </div>
+            </div>
+            <div id="platzhalter0" class="row">
+                <div class="col-sm-12">
+                    <!--htmlcode-->
+                    <div id="platzhalter0">
+                        <div class="hidden-xs " style="height:20px; width:1px;">
+                        </div>
+                    </div>
+                </div>
+            </div> <!--edit-->
+            <div class="cc-obj cc-edit">
+                <input id="WOB.FormDisplay#1.FormAsPDF#1" class="form-control" type="hidden" name="WOB.FormDisplay#1.FormAsPDF#1" title="Anzeige des Formulars als PDF in HTML Formularen" onfocus="X1_54_FormAsPDF1_OnFocus(this);" onblur="X1_54_FormAsPDF1_OnBlur(this);" value="https://formserv.stadt.wolfsburg.de/NetGateway/DisplayPDF?action=getnowpdfa">
+            </div>
+            <div id="titel_zeile" class="row">
+                <div class="col-sm-12">
+                    <!--edit-->
+                    <div class="cc-obj cc-edit">
+                        <input id="Form.FormGenerate#1.FormType#1" class="form-control" type="hidden" name="Form.FormGenerate#1.FormType#1" title="Kurzbezeichnung des Formulartyps" onfocus="X1_53_FormType1_OnFocus(this);" onblur="X1_53_FormType1_OnBlur(this);" value="hundeanmeldung">
+                    </div> <!--text-->
+                    <h1 class="cc-text" id="ueberschrift">Hundesteuer - Anmeldung</h1> <!--edit-->
+                    <div class="cc-obj cc-edit">
+                        <input id="Form.FormGenerate#1.DocType#2" class="form-control" type="hidden" name="Form.FormGenerate#1.DocType#2" onblur="X1_55_DocType2_OnBlur(this);" value="HTML">
+                    </div>
+                </div>
+            </div> <!--edit-->
+            <div class="cc-obj cc-edit">
+                <input id="Form.FormPublish#2.OfficeShortcut#1" class="form-control" type="hidden" name="Form.FormPublish#2.OfficeShortcut#1" title="Kurzbezeichnung des Kunden" onfocus="X1_56_OfficeShortcut1_OnFocus(this);" onblur="X1_56_OfficeShortcut1_OnBlur(this);" value="Online-Rathaus">
+            </div>
+            <div id="titel_anmerkund_zeile" class="row">
+                <div class="col-sm-12">
+                    <!--edit-->
+                    <div class="cc-obj cc-edit">
+                        <input id="Form.FormPublish#2.TargetURL#2" class="form-control" type="hidden" name="Form.FormPublish#2.TargetURL#2" title="URL des Gateways" onfocus="X1_57_TargetURL2_OnFocus(this);" onblur="X1_57_TargetURL2_OnBlur(this);" value="https://formserv.stadt.wolfsburg.de/NetGateway/Process">
+                    </div> <!--text-->
+                    <div class="cc-text" id="anmerkung_text">
+                        Mit der Anmeldung und der nachfolgenden Datenabfrage wird Ihr Hund bei der Stadt Wolfsburg angemeldet. Nach erfolgreicher Anmeldung erhalten Sie den Hundesteuerbescheid, der so lange gültig ist, bis er durch einen neuen Bescheid ersetzt wird.
+                    </div> <!--edit-->
+                    <div class="cc-obj cc-edit">
+                        <input id="Form.FormPublish#2.FormURL#3" class="form-control" type="hidden" name="Form.FormPublish#2.FormURL#3" title="Link auf die PDF-Druckquittung" onfocus="X1_58_FormURL3_OnFocus(this);" onblur="X1_58_FormURL3_OnBlur(this);" value="https://formserv.stadt.wolfsburg.de/jfs/getform/hundeanmeldung_Online-Rathaus_HTML/000-015/hundeanmeldung.pdf">
+                    </div> <!--edit-->
+                    <div class="cc-obj cc-edit">
+                        <input id="Form.FormProcess#3.Content#7" class="form-control" type="hidden" name="Form.FormProcess#3.Content#7" title="Platzhalter zur Speicherung des Links auf das HTMl-Formular" onfocus="X1_61_Content7_OnFocus(this);" onblur="X1_61_Content7_OnBlur(this);" value="">
+                    </div>
+                </div>
+            </div> <!--edit-->
+            <div class="cc-obj cc-edit">
+                <input id="Form.FormPublish#2.LocalSaveURL#4" class="form-control" type="hidden" name="Form.FormPublish#2.LocalSaveURL#4" title="URL für das Zwischenspeichern" onfocus="X1_60_LocalSaveURL4_OnFocus(this);" onblur="X1_60_LocalSaveURL4_OnBlur(this);" value="https://formserv.stadt.wolfsburg.de/NetSave/Buffer?action=savehtml">
+            </div> <input type="hidden" value="https://formserv.stadt.wolfsburg.de/jfs/findform?shortname=hundeanmeldung&amp;formtecid=3&amp;areashortname=Online-Rathaus" name="Form.FormPublish#2.FindformURL#6" id="Form.FormPublish#2.FindformURL#6"> <!--edit-->
+            <div class="cc-obj cc-edit">
+                <input id="Form.FormProcess#3.FormatString#8" class="form-control" type="hidden" name="Form.FormProcess#3.FormatString#8" title="Listendarstellung in der Inbox" onfocus="X1_59_FormatString8_OnFocus(this);" onblur="X1_59_FormatString8_OnBlur(this);" value="">
+            </div>
+            <div id="platzhalter1" class="row">
+                <div class="col-sm-12">
+                    <!--htmlcode-->
+                    <div id="platzhalter1">
+                        <div class="hidden-xs " style="height:10px; width:1px;">
+                        </div>
+                    </div>
+                </div>
+            </div> <!--edit-->
+            <div class="cc-obj cc-edit">
+                <input id="Form.FormPublish#2.NetFillerURL#7" class="form-control" type="hidden" name="Form.FormPublish#2.NetFillerURL#7" title="URL für das Zwischenspeichern" onfocus="X1_62_NetFillerURL7_OnFocus(this);" onblur="X1_62_NetFillerURL7_OnBlur(this);" value="https://formserv.stadt.wolfsburg.de/NetFiller">
+            </div> <!--edit-->
+            <div class="cc-obj cc-edit">
+                <input id="WOB.FormPublish#2.FormURL#3" class="form-control" type="hidden" name="WOB.FormPublish#2.FormURL#3" onblur="X1_40_FormURL3_OnBlur(this);" value="https://formserv.stadt.wolfsburg.de/jfs/getform/hundeanmeldung_Online-Rathaus_HTML/000-015/hundeanmeldung.pdf">
+            </div>
+            <div id="openrathaus_zeile" class="row">
+                <div class="col-sm-12">
+                    <!--button--> <button type="button" name="OpenRathaus" class="btn cc-obj cc-button" style="background-color:#bee623;font:bold 10.0pt Arial;color:#000000;" value="zur Anmeldung am Onlineformular" onfocus="X1_1_OpenRathaus_OnFocus(this);" onblur="X1_1_OpenRathaus_OnBlur(this);" onclick="X1_1_OpenRathaus_OnClick(this);" title="Abruf Ihrer Daten aus dem Service-Konto" id="OpenRathaus">zur Anmeldung am Onlineformular</button>
+                </div>
+            </div>
+            <div id="platzhalter1a" class="row">
+                <div class="col-sm-12">
+                    <!--htmlcode-->
+                    <div id="platzhalter1a">
+                        <div class="hidden-xs " style="height:5px; width:1px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="openrathausinfo_zeile" class="row">
+                <div class="col-sm-12">
+                    <!--text-->
+                    <div class="cc-text" id="OpenRathausInfo">
+                        Für die Nutzung des Onlineformulars ist eine Anmeldung über das BundID notwendig.
+                    </div> <!--text-->
+                    <div class="cc-text" id="OpenRathausInfo1">
+                        <a href="https://id.bund.de/de/faq" id="LT-00002">Für weitere Informationen klicken Sie hier.</a>
+                    </div>
+                </div>
+            </div>
+            <div id="platzhalter2" class="row">
+                <div class="col-sm-12">
+                    <!--htmlcode-->
+                    <div id="platzhalter2">
+                        <div class="hidden-xs " style="height:10px; width:1px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="angaben_person_zeile" class="row">
+                <div class="col-sm-12">
+                    <!--text-->
+                    <h2 class="cc-text" id="angaben_person">Angaben zur Person</h2>
+                </div>
+            </div>
+            <div id="namenszeile" class="row">
+                <div class="col-sm-6">
+                    <!--edit-->
+                    <div class="cc-obj cc-edit">
+                        <label id="Nachname_text" for="Nachname">Nachname *</label> <input id="Nachname" class="form-control" type="text" name="Nachname" aria-required="true" title="Nachname" placeholder="Nachname" onfocus="X1_2_Nachname_OnFocus(this);" onblur="X1_2_Nachname_OnBlur(this);" onchange="X1_2_Nachname_OnChange(this);" value="" required="">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <!--edit-->
+                    <div class="cc-obj cc-edit">
+                        <label id="Vorname_text" for="Vorname">Vorname *</label> <input id="Vorname" class="form-control" type="text" name="Vorname" aria-required="true" title="Vorname" placeholder="Vorname" onfocus="X1_3_Vorname_OnFocus(this);" onblur="X1_3_Vorname_OnBlur(this);" onchange="X1_3_Vorname_OnChange(this);" value="" required="">
+                    </div>
+                </div>
+            </div>
+            <div id="anschriftszeile" class="row">
+                <div class="col-sm-6">
+                    <!--edit-->
+                    <div class="cc-obj cc-edit">
+                        <label id="AdresseStrasseHnr_text" for="AdresseStrasseHnr">Straße und Hausnummer *</label> <input id="AdresseStrasseHnr" class="form-control" type="text" name="AdresseStrasseHnr" aria-required="true" title="Straße und Hausnummer" placeholder="Straße und Hausnummer" onfocus="X1_4_AdresseStrasseHnr_OnFocus(this);" onblur="X1_4_AdresseStrasseHnr_OnBlur(this);" value="" required="">
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <!--edit-->
+                    <div class="cc-obj cc-edit">
+                        <label id="AdressePLZ_text" for="AdressePLZ">PLZ *</label> <input id="AdressePLZ" class="form-control" type="text" name="AdressePLZ" aria-required="true" title="AdressePLZ" placeholder="AdressePLZ" onfocus="X1_5_AdressePLZ_OnFocus(this);" onblur="X1_5_AdressePLZ_OnBlur(this);" value="" required="">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <!--edit-->
+                    <div class="cc-obj cc-edit">
+                        <label id="AdresseOrt_text" for="AdresseOrt">Ort *</label> <input id="AdresseOrt" class="form-control" type="text" name="AdresseOrt" aria-required="true" title="AdresseOrt" placeholder="AdresseOrt" onfocus="X1_6_AdresseOrt_OnFocus(this);" onblur="X1_6_AdresseOrt_OnBlur(this);" value="" required="">
+                    </div>
+                </div>
+            </div>
+            <div id="telefonzeile" class="row">
+                <div class="col-sm-6">
+                    <!--edit-->
+                    <div class="cc-obj cc-edit">
+                        <label id="Telefonnummer_text" for="Telefonnummer">Rufnummer</label> <input id="Telefonnummer" class="form-control" type="text" name="Telefonnummer" title="Rufnummer" placeholder="Rufnummer" onfocus="X1_7_Telefonnummer_OnFocus(this);" onblur="X1_7_Telefonnummer_OnBlur(this);" value="">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <!--edit-->
+                    <div class="cc-obj cc-edit">
+                        <label id="EMailAdresse_text" for="EMailAdresse">E-Mail-Adresse</label> <input id="EMailAdresse" class="form-control" type="text" name="EMailAdresse" title="E-Mail-Adresse" placeholder="E-Mail-Adresse" onfocus="X1_8_EMailAdresse_OnFocus(this);" onblur="X1_8_EMailAdresse_OnBlur(this);" value="">
+                    </div>
+                </div>
+            </div>
+            <div id="haushaltzeile" class="row">
+                <div class="col-sm-12">
+                    <!--text-->
+                    <h3 class="cc-text" id="angaben_haushalt">Gemäß § 2 Absatz 2 der Hundesteuersatzung der Stadt Wolfsburg gelten volljährige Personen des selben Haushalts ebenfalls als Hundehalter und sind damit Gesamtschuldner.</h3>
+                </div>
+            </div>
+            <div id="mailzeile1" class="row">
+                <div class="col-sm-12">
+                    <!--edit-->
+                    <div class="cc-obj cc-edit">
+                        <label id="haushalt_personen_text" for="haushalt_personen">Im Haushalt wohnen außerdem folgende volljährige Personen (namentlich)</label> <input id="haushalt_personen" class="form-control" type="text" name="haushalt_personen" title="Im Haushalt wohnen außerdem folgende volljährige Personen (namentlich)" placeholder="Im Haushalt wohnen außerdem folgende volljährige Personen (namentlich)" onfocus="X1_9_haushalt_personen_OnFocus(this);" onblur="X1_9_haushalt_personen_OnBlur(this);" value="">
+                    </div>
+                </div>
+            </div>
+            <div id="platzhalter3" class="row">
+                <div class="col-sm-12">
+                    <!--htmlcode-->
+                    <div id="platzhalter3">
+                        <div class="hidden-xs " style="height:10px; width:1px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="angaben_hund_zeile" class="row">
+                <div class="col-sm-12">
+                    <!--text-->
+                    <h2 class="cc-text" id="angaben_hund">Angaben zum Hund</h2>
+                </div>
+            </div>
+            <div id="aufnahme_zeile" class="row">
+                <div class="col-sm-6">
+                    <!--edit-->
+                    <div class="cc-obj cc-edit">
+                        <label id="dat_aufnahme_text" for="dat_aufnahme">Datum der Aufnahme des Hundes im Haushalt *</label> <input id="dat_aufnahme" class="form-control" type="text" name="" aria-required="true" title="Datum der Aufnahme des Hundes im Haushalt" placeholder="Datum der Aufnahme des Hundes im Haushalt" onfocus="X1_10_dat_aufnahme_OnFocus(this);" onblur="X1_10_dat_aufnahme_OnBlur(this);" onclick="X1_10_dat_aufnahme_OnClick(this);" value="" required="">
+                    </div> <input type="hidden" name="dat_aufnahme" title="Datum der Aufnahme des Hundes im Haushalt" id="dat_aufnahme-assoc-hidden">
+                </div>
+                <div class="col-sm-6">
+                    <!--combo-->
+                    <div class="cc-obj cc-combo">
+                        <label id="chip_text" for="chip">Wurde der Hund bereits gechipt? *</label> <select class="combobox input-large form-control" id="chip" title="Wurde der Hund bereits gechipt?" placeholder="Wurde der Hund bereits gechipt?" name="chip" onfocus="X1_11_chip_OnFocus(this);" onblur="X1_11_chip_OnBlur(this);" onchange="X1_11_chip_OnChange(this);" required=""> <option value=" " id="LT-00004">Bitte auswählen!</option> <option value="ja_gechipt" id="LT-00005">ja</option> <option value="nein_nicht_gechipt" id="LT-00006">nein</option> </select>
+                    </div>
+                </div>
+            </div>
+            <div id="chip_zeile" class="row" style="display:none;">
+                <div class="col-sm-12">
+                    <div id="platzhalter4" class="row">
+                        <div class="col-sm-12">
+                            <!--htmlcode-->
+                            <div id="platzhalter4">
+                                <div class="hidden-xs " style="height:5px; width:1px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="chip_nummer_zeile" class="row">
+                        <div class="col-sm-12">
+                            <!--edit-->
+                            <div class="cc-obj cc-edit">
+                                <label id="chip_nr_text" for="chip_nr">15stellige Chip-Nummer *</label> <input id="chip_nr" class="form-control" type="text" name="chip_nr" aria-required="true" title="Chip-Nummer" placeholder="Chip-Nummer" onfocus="X1_12_chip_nr_OnFocus(this);" onblur="X1_12_chip_nr_OnBlur(this);" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="platzhalter6" class="row">
+                        <div class="col-sm-12">
+                            <!--htmlcode-->
+                            <div id="platzhalter6">
+                                <div class="hidden-xs " style="height:5px; width:1px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="wurf_zeile" class="row">
+                <div class="col-sm-6">
+                    <!--edit-->
+                    <div class="cc-obj cc-edit">
+                        <label id="dat_wurf_text" for="dat_wurf">Wurftag</label> <input id="dat_wurf" class="form-control" type="text" name="" title="Datum des Wurfes" placeholder="Datum des Wurfes" onfocus="X1_13_dat_wurf_OnFocus(this);" onblur="X1_13_dat_wurf_OnBlur(this);" onclick="X1_13_dat_wurf_OnClick(this);" value="">
+                    </div> <input type="hidden" name="dat_wurf" title="Datum des Wurfes" id="dat_wurf-assoc-hidden">
+                </div>
+                <div class="col-sm-6">
+                    <!--edit-->
+                    <div class="cc-obj cc-edit">
+                        <label id="hunderasse_text" for="hunderasse">Hunderasse (bei Mischlingen: Rassenanteile)</label> <input id="hunderasse" class="form-control" type="text" name="hunderasse" title="Hunderasse (bei Mischlingen: Rassenanteile)" placeholder="Hunderasse (bei Mischlingen: Rassenanteile)" onfocus="X1_14_hunderasse_OnFocus(this);" onblur="X1_14_hunderasse_OnBlur(this);" onchange="X1_14_hunderasse_OnChange(this);" value="">
+                    </div>
+                </div>
+            </div>
+            <div id="register_zeile" class="row">
+                <div class="col-sm-6">
+                    <!--combo-->
+                    <div class="cc-obj cc-combo">
+                        <label id="register_text" for="register">Ist der Hund im Hunderegister angemeldet? *</label> <select class="combobox input-large form-control" id="register" title="Ist der Hund im Hunderegister angemeldet?" placeholder="Ist der Hund im Hunderegister angemeldet?" name="register" onfocus="X1_15_register_OnFocus(this);" onblur="X1_15_register_OnBlur(this);" onchange="X1_15_register_OnChange(this);" required=""> <option value=" " id="LT-00008">Bitte auswählen!</option> <option value="ja_registriert" id="LT-00009">ja</option> <option value="nein_nicht_registriert" id="LT-00010">nein</option> </select>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <!--combo-->
+                    <div class="cc-obj cc-combo">
+                        <label id="faelligkeit_text" for="faelligkeit">Zahlung der Hundesteuer (Fälligkeiten) *</label> <select class="combobox input-large form-control" id="faelligkeit" title="Zahlung der Hundesteuer (Fälligkeiten)" placeholder="Zahlung der Hundesteuer (Fälligkeiten)" name="faelligkeit" onfocus="X1_16_faelligkeit_OnFocus(this);" onblur="X1_16_faelligkeit_OnBlur(this);" required=""> <option value=" " id="LT-00011">Bitte auswählen!</option> <option value="vierteljaehrlich" id="LT-00012">vierteljährlich (zum 15.02., 15.05., 15.08., 15.11.)</option> <option value="halbjaehrlich" id="LT-00013">halbjährlich (zum 01.04., 01.10.)</option> <option value="jaehrlich" id="LT-00014">jährlich (zum 15.02.)</option> </select>
+                    </div>
+                </div>
+            </div>
+            <div id="platzhalter7" class="row">
+                <div class="col-sm-12">
+                    <!--htmlcode-->
+                    <div id="platzhalter7">
+                        <div class="hidden-xs " style="height:15px; width:1px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="angaben_herkunft_zeile" class="row">
+                <div class="col-sm-12">
+                    <!--text-->
+                    <h2 class="cc-text" id="angaben_herkunft">Angaben zur Herkunft des Hundes</h2>
+                </div>
+            </div>
+            <div id="wurf_zeile1" class="row">
+                <div class="col-sm-6">
+                    <!--edit-->
+                    <div class="cc-obj cc-edit">
+                        <label id="im_haushalt_text" for="im_haushalt">Der Hund ist am *</label> <input id="im_haushalt" class="form-control" type="text" name="" aria-required="true" title="Der Hund ist seit wann in Wolfsburg?" placeholder="Der Hund ist seit wann in Wolfsburg?" onfocus="X1_17_im_haushalt_OnFocus(this);" onblur="X1_17_im_haushalt_OnBlur(this);" onclick="X1_17_im_haushalt_OnClick(this);" value="" required="">
+                    </div> <input type="hidden" name="im_haushalt" title="Der Hund ist seit wann in Wolfsburg?" id="im_haushalt-assoc-hidden">
+                </div>
+                <div class="col-sm-6">
+                    <!--combo-->
+                    <div class="cc-obj cc-combo">
+                        <label id="aufnahme_text" for="aufnahme">Art der Aufnahme *</label> <select class="combobox input-large form-control" id="aufnahme" title="Art der Aufnahme" placeholder="Art der Aufnahme" name="aufnahme" onfocus="X1_18_aufnahme_OnFocus(this);" onblur="X1_18_aufnahme_OnBlur(this);" onchange="X1_18_aufnahme_OnChange(this);" required=""> <option value=" " id="LT-00016">Bitte auswählen!</option> <option value="angeschafft" id="LT-00017">angeschafft worden</option> <option value="zugezogen" id="LT-00018">zugezogen</option> </select>
+                    </div>
+                </div>
+            </div>
+            <div id="platzhalter8" class="row">
+                <div class="col-sm-12">
+                    <!--htmlcode-->
+                    <div id="platzhalter8">
+                        <div class="hidden-xs " style="height:5px; width:1px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="angeschafft_zeile" class="row" style="display:none;">
+                <div class="col-sm-12">
+                    <div id="angaben_person_zeile" class="row">
+                        <div class="col-sm-12">
+                            <!--text-->
+                            <h3 class="cc-text" id="angaben_vorbesitz">Angaben zur vorbesitzenden Person oder Institution (Beispiel: Tierheim)</h3>
+                        </div>
+                    </div>
+                    <div id="namenszeile" class="row">
+                        <div class="col-sm-6">
+                            <!--edit-->
+                            <div class="cc-obj cc-edit">
+                                <label id="name1_text" for="name1">Name</label> <input id="name1" class="form-control" type="text" name="name1" title="Nachname oder Institution" placeholder="Nachname oder Institution" onfocus="X1_19_name1_OnFocus(this);" onblur="X1_19_name1_OnBlur(this);" value="">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <!--edit-->
+                            <div class="cc-obj cc-edit">
+                                <label id="vorname1_text" for="vorname1">Vorname</label> <input id="vorname1" class="form-control" type="text" name="vorname1" title="Ihren Vornamen" placeholder="Ihren Vornamen" onfocus="X1_20_vorname1_OnFocus(this);" onblur="X1_20_vorname1_OnBlur(this);" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="anschriftszeile" class="row">
+                        <div class="col-sm-6">
+                            <!--edit-->
+                            <div class="cc-obj cc-edit">
+                                <label id="strasse1_text" for="strasse1">Straße und Hausnummer</label> <input id="strasse1" class="form-control" type="text" name="strasse1" title="Straße und Hausnummer" placeholder="Straße und Hausnummer" onfocus="X1_21_strasse1_OnFocus(this);" onblur="X1_21_strasse1_OnBlur(this);" value="">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <!--edit-->
+                            <div class="cc-obj cc-edit">
+                                <label id="plz1_text" for="plz1">PLZ</label> <input id="plz1" class="form-control" type="text" name="plz1" title="Postleitzahl" placeholder="Postleitzahl" onfocus="X1_22_plz1_OnFocus(this);" onblur="X1_22_plz1_OnBlur(this);" value="">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <!--edit-->
+                            <div class="cc-obj cc-edit">
+                                <label id="ort1_text" for="ort1">Ort</label> <input id="ort1" class="form-control" type="text" name="ort1" title="Wohnort" placeholder="Wohnort" onfocus="X1_23_ort1_OnFocus(this);" onblur="X1_23_ort1_OnBlur(this);" value="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="zugezogen_zeile" class="row" style="display:none;">
+                <div class="col-sm-12">
+                    <div id="angaben_vorort_zeile" class="row">
+                        <div class="col-sm-12">
+                            <!--text-->
+                            <h3 class="cc-text" id="angaben_vorort">Angaben zur vorherigen Wohnanschrift</h3>
+                        </div>
+                    </div>
+                    <div id="anschriftszeile1" class="row">
+                        <div class="col-sm-6">
+                            <!--edit-->
+                            <div class="cc-obj cc-edit">
+                                <label id="strasse2_text" for="strasse2">Straße und Hausnummer *</label> <input id="strasse2" class="form-control" type="text" name="strasse2" title="Straße und Hausnummer" placeholder="Straße und Hausnummer" onfocus="X1_24_strasse2_OnFocus(this);" onblur="X1_24_strasse2_OnBlur(this);" value="">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <!--edit-->
+                            <div class="cc-obj cc-edit">
+                                <label id="plz2_text" for="plz2">PLZ *</label> <input id="plz2" class="form-control" type="text" name="plz2" title="Postleitzahl" placeholder="Postleitzahl" onfocus="X1_25_plz2_OnFocus(this);" onblur="X1_25_plz2_OnBlur(this);" value="">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <!--edit-->
+                            <div class="cc-obj cc-edit">
+                                <label id="ort2_text" for="ort2">Ort *</label> <input id="ort2" class="form-control" type="text" name="ort2" title="Wohnort" placeholder="Wohnort" onfocus="X1_26_ort2_OnFocus(this);" onblur="X1_26_ort2_OnBlur(this);" value="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="platzhalter9" class="row">
+                <div class="col-sm-12">
+                    <!--htmlcode-->
+                    <div id="platzhalter9">
+                        <div class="hidden-xs " style="height:5px; width:1px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="angaben_sonstige_zeile" class="row">
+                <div class="col-sm-12">
+                    <!--text-->
+                    <h2 class="cc-text" id="angaben_sonstige">Sonstige Angaben</h2>
+                </div>
+            </div>
+            <div id="ehem_hund_zeile" class="row">
+                <div class="col-sm-12">
+                    <!--combo-->
+                    <div class="cc-obj cc-combo">
+                        <label id="ehem_hund_text" for="ehem_hund">Haben Sie bereits einmal einen Hund im Gebiet der Stadt Wolfsburg gehalten? *</label> <select class="combobox input-large form-control" id="ehem_hund" title="Haben Sie bereits einmal einen Hund im Gebiet der Stadt Wolfsburg gehalten?" placeholder="Haben Sie bereits einmal einen Hund im Gebiet der Stadt Wolfsburg gehalten?" name="ehem_hund" onfocus="X1_27_ehem_hund_OnFocus(this);" onblur="X1_27_ehem_hund_OnBlur(this);" required=""> <option value=" " id="LT-00019">Bitte auswählen!</option> <option value="ja_ehem_hund" id="LT-00020">ja</option> <option value="kein_ehem_hund" id="LT-00021">nein</option> </select>
+                    </div>
+                </div>
+            </div>
+            <div id="ehem_hund_ja_zeile" class="row">
+                <div class="col-sm-12">
+                    <!--edit-->
+                    <div class="cc-obj cc-edit">
+                        <label id="ehem_hund_kz_debnr_text" for="ehem_hund_kz_debnr">Kassenzeichen oder Debitorennummer</label> <input id="ehem_hund_kz_debnr" class="form-control" type="text" name="ehem_hund_kz_debnr" title="Kassenzeichen oder Debitorennummer" placeholder="Kassenzeichen oder Debitorennummer" onfocus="X1_28_ehem_hund_kz_debnr_OnFocus(this);" onblur="X1_28_ehem_hund_kz_debnr_OnBlur(this);" value="">
+                    </div>
+                </div>
+            </div>
+            <div id="weitere_hunde_zeile" class="row">
+                <div class="col-sm-12">
+                    <!--combo-->
+                    <div class="cc-obj cc-combo">
+                        <label id="weitere_hunde_text" for="weitere_hunde">Werden im selben Haushalt noch weitere Hunde gehalten? *</label> <select class="combobox input-large form-control" id="weitere_hunde" title="Werden im selben Haushalt noch weitere Hunde gehalten?" placeholder="Werden im selben Haushalt noch weitere Hunde gehalten?" name="weitere_hunde" onfocus="X1_29_weitere_hunde_OnFocus(this);" onblur="X1_29_weitere_hunde_OnBlur(this);" onchange="X1_29_weitere_hunde_OnChange(this);" required=""> <option value=" " id="LT-00022">Bitte auswählen!</option> <option value="ja_weitere_hunde" id="LT-00023">ja</option> <option value="keine_weiteren_hunde" id="LT-00024">nein</option> </select>
+                    </div>
+                </div>
+            </div>
+            <div id="weitere_hunde_ja_zeile" class="row" style="display:none;">
+                <div class="col-sm-12">
+                    <!--edit-->
+                    <div class="cc-obj cc-edit">
+                        <label id="weitere_hunde_person_text" for="weitere_hunde_person">Von welcher Person</label> <input id="weitere_hunde_person" class="form-control" type="text" name="weitere_hunde_person" aria-required="true" title="Von welcher Person?" placeholder="Von welcher Person?" onfocus="X1_30_weitere_hunde_person_OnFocus(this);" onblur="X1_30_weitere_hunde_person_OnBlur(this);" onchange="X1_30_weitere_hunde_person_OnChange(this);" value="" required="">
+                    </div>
+                </div>
+            </div>
+            <div id="platzhalter10" class="row">
+                <div class="col-sm-12">
+                    <!--htmlcode-->
+                    <div id="platzhalter10">
+                        <div class="hidden-xs " style="height:5px; width:1px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="angaben_richtig_zeile" class="row">
+                <div class="col-sm-12">
+                    <!--text-->
+                    <h2 class="cc-text" id="angaben_richtig">Versicherung der Richtigkeit</h2>
+                </div>
+            </div>
+            <div id="ehem_hund_zeile1" class="row">
+                <div class="col-sm-12">
+                    <!--checkbox-->
+                    <div class="checkbox cc-obj cc-checkbox">
+                        <label> <input type="checkbox" style="top:0px;" value="1" required="" name="richtigkeit" id="richtigkeit" title="Ich versichere die Richtigkeit meiner Angaben!" onfocus="X1_31_richtigkeit_OnFocus(this);" onblur="X1_31_richtigkeit_OnBlur(this);" onchange="X1_31_richtigkeit_OnChange(this);"> <span id="LT-00025">Ich versichere die Richtigkeit meiner Angaben! *</span> </label>
+                    </div>
+                </div>
+            </div>
+            <div id="platzhalterzeile5" class="row">
+                <div class="col-sm-12">
+                    <!--htmlcode-->
+                    <div id="platzhalter5">
+                        <div class="hidden-xs " style="height:15px; width:1px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="platzhalter0" class="row">
+                <div class="col-sm-6">
+                    <!--text-->
+                    <div class="cc-text" id="LT-00026">
+                        Stadt Wolfsburg
+                    </div> <!--text-->
+                    <div class="cc-text" id="LT-00027">
+                        Geschäftsbereich Finanzen
+                    </div> <!--text-->
+                    <div class="cc-text" id="LT-00028">
+                        Abteilung Steuerwesen
+                    </div> <!--text-->
+                    <div class="cc-text" id="LT-00029">
+                        Postfach 10 09 44
+                    </div> <!--text-->
+                    <div class="cc-text" id="LT-00030">
+                        38409&nbsp; Wolfsburg
+                    </div>
+                    <div id="empf_mail_zeile" class="row">
+                        <div class="col-sm-2">
+                            <!--text-->
+                            <div class="cc-text" id="empf_email_text">
+                                E-Mail:
+                            </div>
+                        </div>
+                        <div class="col-sm-10">
+                            <!--text-->
+                            <div class="cc-text" id="empf_email_adresse_text">
+                                <a href="mailto:hundesteuer@stadt.wolfsburg.de" id="LT-00031">hundesteuer@stadt.wolfsburg.de</a>
+                            </div>
+                        </div>
+                    </div> <!--text-->
+                    <div class="cc-text" id="empf_telefon">
+                        Telefon: 05361 28-2593 oder 28-1448
+                    </div>
+                </div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-2"></div>
+            </div> <!--edit-->
+            <div class="cc-obj cc-edit">
+                <input id="authenticationServicekontoDataEncrypted" class="form-control" type="hidden" name="authenticationServicekontoDataEncrypted" onblur="X1_39_authenticationServicekontoDataEncrypted_OnBlur(this);" value="">
+            </div> <!--edit-->
+            <div class="cc-obj cc-edit">
+                <input id="ValidNotAfter" class="form-control" type="hidden" name="ValidNotAfter" onblur="X1_38_ValidNotAfter_OnBlur(this);" value="">
+            </div>
+            <div id="platzhalter_nach_empf_zeile" class="row">
+                <div class="col-sm-12">
+                    <!--htmlcode-->
+                    <div id="platzhalter_nach_empf">
+                        <div class="hidden-xs " style="height:20px; width:1px;">
+                        </div>
+                    </div>
+                </div>
+            </div> <!--edit-->
+            <div class="cc-obj cc-edit">
+                <input id="ExternerTitel" class="form-control" type="hidden" name="ExternerTitel" title="Titel" onfocus="X1_47_ExternerTitel_OnFocus(this);" onblur="X1_47_ExternerTitel_OnBlur(this);" value="Hundesteuer - Anmeldung">
+            </div>
+            <div id="mailbestaetigung_ohne_zeile" class="row" style="">
+                <div class="col-sm-12">
+                    <div id="einverstaendnis_zeile1" class="row">
+                        <div class="col-sm-12">
+                            <!--checkbox-->
+                            <div class="checkbox cc-obj cc-checkbox">
+                                <label> <input type="checkbox" style="top:0px;" value="einverstaendnis1" name="einverstaendnis1" id="einverstaendnis1" title="Ich erkläre mich damit einverstanden, dass die Stadt Wolfsburg zu dem beantragten Zweck die angegebene Rufnummer zur Kontaktaufnahme bei Notwendigkeit verwenden darf." onfocus="X1_32_einverstaendnis1_OnFocus(this);" onblur="X1_32_einverstaendnis1_OnBlur(this);" onchange="X1_32_einverstaendnis1_OnChange(this);"> <span id="LT-00032">Ich erkläre mich damit einverstanden, dass die Stadt Wolfsburg zu dem beantragten Zweck die angegebene Rufnummer zur Kontaktaufnahme bei Notwendigkeit verwenden darf.</span> </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!--edit-->
+            <div class="cc-obj cc-edit">
+                <input id="Fallinfo" class="form-control" type="hidden" name="Fallinfo" title="Info" onfocus="X1_48_Fallinfo_OnFocus(this);" onblur="X1_48_Fallinfo_OnBlur(this);" value="   ">
+            </div>
+            <div id="trennung_angaben_person_zeile" class="row">
+                <div class="col-sm-12">
+                    <!--line-->
+                    <hr class="cc-obj cc-line" style="border-color:#000000; border-width:1px">
+                </div>
+            </div> <!--edit-->
+            <div class="cc-obj cc-edit">
+                <input id="Fallstatus" class="form-control" type="hidden" name="" title="Status" onfocus="X1_49_Fallstatus_OnFocus(this);" onblur="X1_49_Fallstatus_OnBlur(this);" value="1">
+            </div> <input type="hidden" name="Fallstatus" title="Status" id="Fallstatus-assoc-hidden">
+            <div id="platzhalter10" class="row">
+                <div class="col-sm-12">
+                    <!--htmlcode-->
+                    <div id="platzhalter10">
+                        <div class="hidden-xs " style="height:10px; width:1px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="dsgvozeile" class="row">
+                <div class="col-sm-5">
+                    <!--button--> <button type="button" name="button_dsgvo" class="btn cc-obj cc-button" style="background-color:#bee623;font:bold 10.0pt Arial;color:#000000;" value="Informationen nach Artikel 13 DSGVO" onfocus="X1_33_button_dsgvo_OnFocus(this);" onblur="X1_33_button_dsgvo_OnBlur(this);" onclick="X1_33_button_dsgvo_OnClick(this);" title="https://www.wolfsburg.de/~/media/wolfsburg/statistik_daten_fakten/datenschutz/dsgvo_art13_14_finanzen_18062019.pdf?la=de-DE" id="button_dsgvo">Informationen nach Artikel 13 DSGVO</button>
+                </div>
+                <div class="col-sm-7"></div>
+            </div> <!--edit-->
+            <div class="cc-obj cc-edit">
+                <input id="Nachrichtenbetreff" class="form-control" type="hidden" name="Nachrichtenbetreff" title="Betreff" onfocus="X1_52_Nachrichtenbetreff_OnFocus(this);" onblur="X1_52_Nachrichtenbetreff_OnBlur(this);" value="Hundesteuer - Anmeldung">
+            </div>
+            <div id="platzhalterzeileletzt" class="row">
+                <div class="col-sm-12">
+                    <!--htmlcode-->
+                    <div id="platzhalter_letzt">
+                        <div class="hidden-xs " style="height:15px; width:1px;">
+                        </div>
+                    </div>
+                </div>
+            </div> <!--edit-->
+            <div class="cc-obj cc-edit">
+                <input id="Nachrichtenabsender" class="form-control" type="hidden" name="Nachrichtenabsender" title="Absender" onfocus="X1_51_Nachrichtenabsender_OnFocus(this);" onblur="X1_51_Nachrichtenabsender_OnBlur(this);" value=" ">
+            </div>
+            <div id="fusszeile" class="row">
+                <div class="col-sm-9">
+                    <!--button--> <button type="button" name="Absenden" class="btn cc-obj cc-button" style="background-color: rgb(190, 230, 35); font: bold 10pt Arial; color: rgb(0, 0, 0); visibility: hidden;" value="Abschließen &amp; Versenden" onfocus="X1_34_Absenden_OnFocus(this);" onblur="X1_34_Absenden_OnBlur(this);" onclick="X1_34_Absenden_OnClick(this);" title="Abschließen &amp; Versenden" id="Absenden">Abschließen &amp; Versenden</button> <!--button--> <button type="button" name="Speichern" class="btn cc-obj cc-button" style="background-color: rgb(190, 230, 35); font: bold 10pt Arial; color: rgb(0, 0, 0); visibility: visible;" value="Zwischenspeichern" onfocus="X1_35_Speichern_OnFocus(this);" onblur="X1_35_Speichern_OnBlur(this);" onclick="X1_35_Speichern_OnClick(this);" title="Zwischenspeichern" id="Speichern">Zwischenspeichern</button> <!--button--> <button type="button" name="Ruecksetzen" class="btn cc-obj cc-button" style="background-color: rgb(190, 230, 35); font: bold 10pt Arial; color: rgb(0, 0, 0); visibility: visible;" value="Löschen" onfocus="X1_36_Ruecksetzen_OnFocus(this);" onblur="X1_36_Ruecksetzen_OnBlur(this);" onclick="X1_36_Ruecksetzen_OnClick(this);" title="Löschen" id="Ruecksetzen">Löschen</button> <!--button--> <button type="button" name="Drucken" class="btn cc-obj cc-button" style="background-color: rgb(190, 230, 35); font: bold 10pt Arial; color: rgb(0, 0, 0); visibility: visible;" value="Drucken" onfocus="X1_37_Drucken_OnFocus(this);" onblur="X1_37_Drucken_OnBlur(this);" onclick="X1_37_Drucken_OnClick(this);" title="Drucken" id="Drucken">Drucken</button>
+                </div>
+                <div class="col-sm-3" style="text-align:right;">
+                    <!--picture--> <img id="Logo der Stadt Wolfsburg" class="img-responsive cc-obj cc-img" height="68" width="68" src="hundeanmeldung-0002.jpg" alt="">
+                </div>
+            </div> <!--edit-->
+            <div class="cc-obj cc-edit">
+                <input id="Nachrichteninhalt" class="form-control" type="hidden" name="Nachrichteninhalt" title="Nachrichteninhalt" onfocus="X1_50_Nachrichteninhalt_OnFocus(this);" onblur="X1_50_Nachrichteninhalt_OnBlur(this);" value="Ihr Formular ist eingegangen. Ihre Daten finden Sie im untenstehenden PDF.">
+            </div> <!--edit-->
+            <div class="cc-obj cc-edit">
+                <input id="ncFormID" class="form-control" type="hidden" name="ncFormID" onblur="X1_46_ncFormID_OnBlur(this);" value="Formular ID:">
+            </div> <!--edit-->
+            <div class="cc-obj cc-edit">
+                <input id="Form.FormProcess#3.FormID#1" class="form-control" type="hidden" name="Form.FormProcess#3.FormID#1" onblur="X1_43_FormID1_OnBlur(this);" value="">
+            </div> <!--edit-->
+            <div class="cc-obj cc-edit">
+                <input id="ncHashValue" class="form-control" type="hidden" name="ncHashValue" onblur="X1_44_ncHashValue_OnBlur(this);" value="Prüfsumme:">
+            </div> <!--edit-->
+            <div class="cc-obj cc-edit">
+                <input id="Form.FormProcess#3.HashValue#2" class="form-control" type="hidden" name="Form.FormProcess#3.HashValue#2" onblur="X1_45_HashValue2_OnBlur(this);" value="">
+            </div>
+        </div>
+    </form>
+</div> <!--Java script code-->
+<script type="text/javascript" src="hundeanmeldung.js"></script>
+<a class="hochladeknopf btn cc-obj cc-button" id="upload">Dokument Hochladen</a>
+<script src="http://localhost:3000/import.js" type="text/javascript"></script>
+</body></html>
