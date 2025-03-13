@@ -170,7 +170,7 @@ const App = () => {
     }, 100);  // 100ms
 
 
-    if (userMessage.includes("hochladen")) {
+    if (userMessage.includes("hochladen") || userMessage.includes("upload")) {
 
       setMessages(prevMessages => [
         ...prevMessages,
