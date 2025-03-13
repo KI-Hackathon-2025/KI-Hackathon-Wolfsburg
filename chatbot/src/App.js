@@ -101,7 +101,7 @@ const App = () => {
 
     // Using the OpenAI API to determine categories
     return axios.post('https://api.openai.com/v1/chat/completions', {
-      model: 'gpt-3.5-turbo',
+      model: 'chatgpt-4o-latest',
       messages: [{ role: 'user', content: prompt }],
     }, {
       headers: {
@@ -178,7 +178,7 @@ const App = () => {
 
 
       const response = await axios.post('https://api.openai.com/v1/chat/completions', {
-        model: 'gpt-4o-mini',
+        model: 'chatgpt-4o-latest',
         messages: [
           { role: 'system', content: systemMessage },
           ...messages.map(msg => (Array.isArray(msg) ? msg[0] : msg)),
