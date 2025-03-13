@@ -173,7 +173,7 @@ const App = () => {
       const matchingEntry = findSimilarEntry(category);
 
       const systemMessage = matchingEntry
-        ? `Context: ${matchingEntry.content}\n\nInstruction: Provide an answer based on the above context if it answers the user's question. Otherwise, answer based on general knowledge. and give the url of the content. url is : ${matchingEntry.url}`
+        ? `Context: ${matchingEntry.content}\n\nInstruction: Provide an answer based on the above context if it answers the user's question. and give the url of the content. url is : ${matchingEntry.url}`
         : "No relevant context available. Provide a general answer.";
 
 
