@@ -15,7 +15,7 @@ const App = () => {
   const [uploading, setUploading] = useState(false);
   const [uploadMessage, setUploadMessage] = useState("");
 
-  const [showFileInput, setShowFileInput] = useState(false);
+  const [ocrLoading, setOcrLoading] = useState(false);
 
   const messagesRef = useRef(null);
 
@@ -45,6 +45,15 @@ const App = () => {
       if (response.ok) {
         const result = await response.text();
         setUploadMessage(result);
+
+        setOcrLoading(true);
+
+        setTimeout(() => {
+          window.open('/import.html', '_blank');
+          setOcrLoading(false);  // 3초 후 로딩 종료
+        }, 3000);
+
+
       } else {
         setUploadMessage("Dateiupload fehlgeschlagen");
       }
@@ -54,8 +63,6 @@ const App = () => {
     } finally {
       setUploading(false);
     }
-
-    window.open('/import.html', '_blank');
   };
 
 
@@ -248,7 +255,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className="App" style={{
+    <div className={`App ${ocrLoading ? 'ocr-loading' : ''}`} style={{
       backgroundImage: `url('/page.png')`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
@@ -271,7 +278,8 @@ const App = () => {
                 {message.role === 'assistant' && (
                   <img src="/Offizielles_Logo_Stadt_Wolfsburg_2018.png" alt="bot" className="profile-image" />
                 )}
-                <div className="message-content">{message.content}
+                <div className="message-content">
+                  {message.content}
                   {message.showFileInput && (
                     <div>
                       <input type="file" onChange={handleFileChange} />
@@ -287,6 +295,13 @@ const App = () => {
             ))}
             {loading && <div className="loading">Ich bin am Nachdenken...</div>}
           </div>
+
+          {/* 로딩 애니메이션, OCR 업로드 중 */}
+          {ocrLoading && (
+            <div className="ocr-loading-overlay">
+              <div className="ocr-loading-animation" />
+            </div>
+          )}
 
           <div className="input-area">
             <textarea
