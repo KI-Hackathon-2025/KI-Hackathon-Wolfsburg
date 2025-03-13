@@ -10,8 +10,13 @@ const chip = document.querySelector("#chip");
 const chipnummer = document.querySelector("#chip_nr");
 const rasse = document.querySelector("#hunderasse");
 const datwurf = document.querySelector("#dat_wurf");
+const fileInput = document.createElement('input');
+fileInput.type = 'file';
+fileInput.accept = 'image/*,application/pdf';
+fileInput.style.display = 'none';
+document.body.appendChild(fileInput);
 
-upload.addEventListener("click", (e) => {
+fileInput.addEventListener('change', (e) => {
     nachname.value = "Mustermann";
     vorname.value = "Max";
     addresse.value = "Musterstraße 1";
@@ -22,4 +27,8 @@ upload.addEventListener("click", (e) => {
     chipnummer.value = "123456789012345";
     rasse.value = "Labrador";
     datwurf.value = "01.06.2020";
+});
+
+upload.addEventListener("click", (e) => {
+    fileInput.click();
 });
