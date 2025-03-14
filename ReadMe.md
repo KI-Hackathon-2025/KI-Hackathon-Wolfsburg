@@ -27,10 +27,13 @@ This project aims to simplify personal information management and form filling t
 
 ![image](https://github.com/user-attachments/assets/3cc2acdd-4c28-4ebf-b968-f42c9fac499c)
 
+## How to start presentation
+1. Go to the `presentation` directory
+2. Open the `genially.html` file to start presentation
 
 ## 🖥️ How to run frontend
 
-1. Run `cd chatbot` to move to frontend directory
+1. Run `cd fronted` to move to frontend directory
 2. Run `npm install` to **install** the required packages
 3. Run `npm start` to **start** the frontend server
 4. Open your browser to `http://localhost:3000` to view the application
