@@ -105,7 +105,7 @@
 .message.user .message-content {
   background-color: #bee623;
   /* 사용자 메시지 배경 색상 */
-  color: white;
+  color: black;
   /* 사용자 메시지 글자 색상 */
   max-width: 300px;
   /* 사용자의 메시지 너비 설정 */

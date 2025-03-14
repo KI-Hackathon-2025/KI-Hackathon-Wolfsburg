@@ -19,6 +19,10 @@ const App = () => {
 
   const messagesRef = useRef(null);
 
+  useEffect(() => {
+    document.title = "Wolfsburg";
+  }, []);
+
 
   /** File Upload */
 
