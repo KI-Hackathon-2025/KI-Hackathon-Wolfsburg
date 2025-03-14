@@ -43,7 +43,7 @@ This project aims to simplify personal information management and form filling t
 1. Run `cd backend` to move to backend directory
 2. Run `npm install` to **install** the required packages
 3. Run `npm start` to **start** the backend server
-4. 
+
 ## ✨ Features
 
 ### 🗃️ Data Handling
