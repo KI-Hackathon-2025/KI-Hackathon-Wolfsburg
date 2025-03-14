@@ -77,36 +77,17 @@ flowchart TD
 
 ## 🖥️ How to run frontend
 
-1. Run `cd frontend` to move to frontend directory
+1. Run `cd chatbot` to move to frontend directory
 2. Run `npm install` to **install** the required packages
-3. Run `npm run dev` to **start** the development server (we will use this for now)
-4. Open your browser to `http://localhost:5173` to view the application
+3. Run `npm start` to **start** the frontend server
+4. Open your browser to `http://localhost:3000` to view the application
 
 ## ⚙️ How to run backend
 
 1. Run `cd backend` to move to backend directory
-2. Run `python3 -m venv .venv` to **create** a virtual environment
-3. Run `source .venv/bin/activate` to **activate** the virtual environment
-4. Run `pip install -r requirements.txt` to **install** the required packages to the virtual environment
-5. Run `uvicorn main:app --reload` to **start** the backend server
-6. The API will be available at `http://localhost:8000`
-7. Access API documentation at `http://localhost:8000/docs`
-
-## 🐍 Python Virtual Environment tips
-
-### 🔋 Virtual Environment Activation
-
-- To **activate** the virtual environment, run `source .venv/bin/activate`
-- To **deactivate** the virtual environment, run `deactivate`
-- To **check** if the virtual environment is activated, run `which python3` and it should show the path to the virtual environment
-
-### 📦 Installing packages
-
-- Before installing packages, MAKE SURE the virtual environment is **activated**
-- To **install** packages, run `pip install <package-name>`
-- To **save** the installed packages to `requirements.txt`, run `pip freeze > requirements.txt`
-  - `requirements.txt` is a file that contains all the packages installed (like `package.json` in Node.js)
-
+2. Run `npm install` to **install** the required packages
+3. Run `npm start` to **start** the backend server
+4. 
 ## ✨ Features
 
 ### 🗃️ Data Handling
