@@ -25,55 +25,8 @@ This project aims to simplify personal information management and form filling t
 
 ## 👤 User Experience Flows
 
-```mermaid
-flowchart TD
-    Start([User Starts App])
-    
-    subgraph "Personal Information Management"
-        P1[User selects Information Upload]
-        P2[AI provides upload guidance]
-        P3[User uploads documents/types information]
-        P4[AI extracts & structures information]
-        P5[User reviews extracted information]
-        P6{Is information correct?}
-        P7[User provides corrections]
-        P8[Information saved to system]
-    end
-    
-    subgraph "Question Answering"
-        Q1[User opens chatbot interface]
-        Q2[User asks question]
-        Q3[AI retrieves relevant information]
-        Q4[AI generates & displays answer]
-    end
-    
-    subgraph "Form Filling"
-        F1[User uploads empty form]
-        F2[AI analyzes form structure]
-        F3[AI populates form with user data]
-        F4[User reviews completed form]
-        F5{Is form correct?}
-        F6[User requests adjustments]
-        F7[User downloads filled form]
-    end
-    
-    Start --> P1
-    Start --> Q1
-    Start --> F1
-    
-    %% Personal Information Flow
-    P1 --> P2 --> P3 --> P4 --> P5 --> P6
-    P6 -->|No| P7 --> P4
-    P6 -->|Yes| P8
-    
-    %% Chatbot Flow
-    Q1 --> Q2 --> Q3 --> Q4
-    
-    %% Form Filling Flow
-    F1 --> F2 --> F3 --> F4 --> F5
-    F5 -->|No| F6 --> F3
-    F5 -->|Yes| F7
-```
+![image](https://github.com/user-attachments/assets/3cc2acdd-4c28-4ebf-b968-f42c9fac499c)
+
 
 ## 🖥️ How to run frontend
 
